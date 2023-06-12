@@ -1,0 +1,63 @@
+.bodyctn {
+    min-height: 600px;
+    width: 100vw;
+    overflow-x: hidden;
+    margin-top: 40px;
+}
+
+.bodyctn>div {
+    width: 100%
+}
+
+.searchCtn {
+    padding: 6px;
+    border: 1px solid #ffffff14;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, .02);
+    min-width: 380px;
+    border-radius: 12px;
+}
+
+.MuiInputBase-root {
+    caret-color: white !important;
+}
+
+.root_input>div {
+    color: aliceblue !important
+}
+
+.si {
+    color: aliceblue;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #fa6e9d;
+    margin-left: 4px;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.inp {
+    width: 100%;
+    color: aliceblue !important
+}
+
+.fctrl {
+    background-color: #fa6e9d;
+    padding: 6px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    position: relative;
+    left: 6px;
+    width: 111px;
+    color: aliceblue !important;
+}
+
+.fctrl>div {
+    color: aliceblue !important;
+    font-style: normal !important;
+    border-bottom: none;
+}

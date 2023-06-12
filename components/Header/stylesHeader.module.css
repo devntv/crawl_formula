@@ -1,0 +1,53 @@
+.ctnLogo {
+    display: flex;
+    margin-top: 10px;
+}
+
+.ctnLogo>div {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.rotating-text {
+    text-transform: unset;
+    position: relative;
+    padding-bottom: 20px;
+    color: #cbd5e1;
+    font-size: 20px !important;
+    font-family: var(--main-font-fml) !important
+}
+
+.bf {
+    position: relative;
+}
+
+.bf::before {
+    content: "";
+    width: 70px;
+    height: 3px;
+    background: linear-gradient(90.06deg, #f62682 -4.45%, #5cf1e7 104.12%);
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 0);
+}
+
+.change {
+    animation: scale 0.5s ease-out;
+    transform-origin: center;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
