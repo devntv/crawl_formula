@@ -1,9 +1,9 @@
-import { Box, Grid, TextField } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { styled } from '@mui/system';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import TableRaceResult from '../TableRaceResult';
 import styles from './styles.module.css';
@@ -15,6 +15,10 @@ interface RaceData {
     time: string;
     lap: string;
     winner: string
+    pos?: string
+    driver?: string
+    pts?: string
+    nationally?: string
 }
 
 interface RaceResult {
@@ -22,29 +26,30 @@ interface RaceResult {
     data: RaceData[];
 }
 
-const StyledFormControl = styled(FormControl)({
-    '& label.Mui-focused': {
-        color: 'green',
-    },
+const StylesFormF = styled(FormControl)({
+    borderTopLeftRadius: '12px',
+    borderBottomLeftRadius: '12px',
+    borderRight: 'none !important'
+})
+
+const StyledFormControlYear = styled(FormControl)({
     '& .MuiInput-underline:after': {
         borderBottomColor: 'transparent',
     },
-    '& .MuiInput-root': {
-        borderBottom: 'none',
-    },
-    '& .MuiOutlinedInput-root': {
-        borderBottom: 'none'
-    },
-    '& .MuiInput-root.MuiSelect-root::before': {
-        borderBottom: 'none',
-
-    }
+    backgroundColor: '#fa6e9d',
+    // 
+    borderRight: 'none !important',
+    position: 'relative',
+    margin: 0
 });
 
 
 function BodyData() {
     const [dataRace, setDataRace] = useState<RaceResult[]>([])
     const [loading, setLoading] = useState(true)
+    const [year, setYear] = useState('2023');
+    const [field, setField] = useState('2023');
+
     useEffect(() => {
         async function getDataRace() {
             const response = await fetch("/api/raceResult");
@@ -64,66 +69,68 @@ function BodyData() {
     }, []);
 
     // In ra giá trị mới của state "dataRace"
+    const handleChangeField = (event: SelectChangeEvent) => {
+        const selectedField = event.target.value;
+        setField(selectedField);
 
-    const [year, setYear] = useState('2023');
+    };
 
-    const handleChange = (event: SelectChangeEvent) => {
+    const handleChangeYear = (event: SelectChangeEvent) => {
         setYear(event.target.value);
     };
 
 
-    const raceResult = useMemo(() => dataRace.filter((result) => result.year === year)[0], [dataRace, year])
-
-    console.log('raceResult', dataRace);
     return (
         <Grid container className={styles.bodyctn}>
             <Grid item xs={12} style={{ display: 'flex', maxHeight: '60px' }} justifyContent='center' alignItems='center' >
-                <Grid>
-                    <Box className={styles.searchCtn}>
-                        <TextField sx={{
-                            border: 'none',
-                            '& .MuiOutlinedInput-notchedOutline': {
-                                display: 'none',
-                            },
-                        }}
-                            className={styles.inp}
-                            classes={{
-                                root: styles.root_input,
-                            }}
-                            placeholder='Search somthing...'
-                        />
+                <Box className={styles.searchCtn}>
+                    <StylesFormF sx={{ m: 1, minWidth: 120, textTransform: 'uppercase' }} className={styles.fctrl} variant="standard">
+                        <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            displayEmpty
+                            disableUnderline
+                            label="Age"
+                            value={field}
 
-                        <StyledFormControl variant="standard" className={styles.fctrl}>
-                            <Select
-                                value={year}
-                                onChange={handleChange}
-                                displayEmpty
-                                disableUnderline
-                                inputProps={{ 'aria-label': 'Without label' }}
-                                defaultValue={loading ? '2023' : ''}
+                            onChange={handleChangeField}
+                        >
+                            {dataRace && dataRace.length > 0 &&
+                                Object.keys(dataRace[0]).filter(key => key !== 'year').map((key) => (
+                                    <MenuItem key={key} value={key} style={{ textTransform: 'uppercase' }}>
+                                        {key !== 'DHL' ? key : 'DHL FASTEST LAP AWARD'}
+                                    </MenuItem>
+                                ))
+                            }
+                        </Select>
 
-                            >
+                    </StylesFormF>
 
-                                {dataRace?.map((raceResult) => {
-                                    return (
-                                        <MenuItem key={raceResult.year} value={raceResult.year} >
-                                            {raceResult.year}
-                                        </MenuItem>
-                                    )
+                    <StyledFormControlYear variant="standard" className={styles.fctrl}>
+                        <Select
+                            value={year}
+                            onChange={handleChangeYear}
+                            displayEmpty
+                            disableUnderline
+                            inputProps={{ 'aria-label': 'Without label' }}
 
-                                })}
-                            </Select>
-                        </StyledFormControl>
 
-                    </Box>
-
-                </Grid>
-
+                        >
+                            {dataRace?.map((raceResult) =>
+                            (
+                                <MenuItem key={raceResult.year} value={raceResult.year} >
+                                    {raceResult.year}
+                                </MenuItem>
+                            )
+                            )}
+                        </Select>
+                    </StyledFormControlYear>
+                </Box>
                 <BiSearch className={styles.si} />
             </Grid>
             <Grid container>
                 <Grid item xs={12} style={{ display: 'flex', padding: '40px' }} justifyContent='center'>
-                    <TableRaceResult dataRace={raceResult?.data || []} loading={loading} />
+                    <TableRaceResult filterData={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} loading={loading} />
                 </Grid>
             </Grid>
         </Grid >
