@@ -1,5 +1,6 @@
 import * as puppeteer from "puppeteer";
 import { URL_F1_CRAWL } from "../../constant";
+import { CURRENT_YEAR, START_TIME } from "../../constant/time";
 
 interface RaceResult {
   year: string;
@@ -9,8 +10,8 @@ interface RaceResult {
 export default async function handler(req, res) {
   const raceResults: RaceResult[] = [];
   const raceData: any[] = [];
-  const startYear = 2000;
-  const endYear = 2023;
+  const startYear = START_TIME;
+  const endYear = CURRENT_YEAR;
 
   const browser = await puppeteer.launch({
     headless: "new",
@@ -18,16 +19,25 @@ export default async function handler(req, res) {
   });
 
   try {
+    // race page
     const pageRace = await browser.newPage();
     // drivers page
     const pageDrivers = await browser.newPage();
+    // teams page
+    const pageTeams = await browser.newPage();
+    // dhl fastest lap award
+    const pageDFLA = await browser.newPage();
 
     for (let year = startYear; year <= endYear; year++) {
       await pageRace.goto(`${URL_F1_CRAWL}/${year}/races.html`);
       await pageDrivers.goto(`${URL_F1_CRAWL}/${year}/drivers.html`);
+      await pageTeams.goto(`${URL_F1_CRAWL}/${year}/team.html`);
+      await pageDFLA.goto(`${URL_F1_CRAWL}/${year}/fastest-laps.html`);
 
       await pageRace.waitForSelector(".resultsarchive-table");
       await pageDrivers.waitForSelector(".resultsarchive-table");
+      await pageTeams.waitForSelector(".resultsarchive-table");
+      await pageDFLA.waitForSelector(".resultsarchive-table");
 
       // race page
       const racesRow = await pageRace.$$eval(
@@ -68,17 +78,45 @@ export default async function handler(req, res) {
             };
           })
       );
+      // teams page
+      const teamsRow = await pageTeams.$$eval(
+        ".resultsarchive-table tbody tr",
+        (rows) =>
+          rows.map((row) => {
+            const cells = row.querySelectorAll("td");
+            return {
+              pos: cells[1]?.textContent?.trim(),
+              team: cells[2]?.textContent?.trim(),
+              pts: cells[3]?.textContent?.trim(),
+            };
+          })
+      );
+      // dfla page
+      const dflaRow = await pageDFLA.$$eval(
+        ".resultsarchive-table tbody tr",
+        (rows) =>
+          rows.map((row) => {
+            const cells = row.querySelectorAll("td");
+            const driverCells = cells[2].querySelectorAll("span");
+            const drivers = Array.from(driverCells)
+              .map((span) => span.textContent.trim())
+              .join(" ");
+            return {
+              grandprix: cells[1]?.textContent?.trim(),
+              driver: drivers,
+              car: cells[3]?.textContent?.trim(),
+              time: cells[4]?.textContent?.trim(),
+            };
+          })
+      );
 
       raceData.push({
         year: year.toString(),
-        dataRace: racesRow,
-        dataDrivers: driversRow,
+        races: racesRow,
+        drivers: driversRow,
+        teams: teamsRow,
+        DHL: dflaRow,
       });
-
-      //   raceResults.push({
-      //     year: year.toString(),
-      //     drivers: driverNames,
-      //   });
     }
 
     console.log("data >", raceData);

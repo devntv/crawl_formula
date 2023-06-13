@@ -30,51 +30,50 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 interface DataResult {
-    grandprix: string,
-    date: string,
-    car: string,
-    lap: string,
-    winner: string
-    time: string
+    grandprix?: string
+    date?: string
+    car?: string
+    lap?: string
+    winner?: string
+    time?: string
+    pos?: string
+    driver?: string
+    pts?: string
+    nationally?: string
 }
 
 interface CustomizedTableProps {
-    dataRace: DataResult[];
+    filterData: DataResult[];
     loading: boolean;
 }
 
 
 
-export default function TableRaceResult({ dataRace = [], loading }: CustomizedTableProps) {
+export default function TableData(props: CustomizedTableProps) {
+    const { filterData = [], loading } = props
 
-
+    // console.log('setSelectedArray', filterData[0]);
+    // console.log('krys', filterData[0]?.map(r => Object.values(r)))
     return (
         <TableContainer component={Paper} sx={{ backgroundColor: 'transparent' }} >
-            <Table sx={{ minWidth: 700, }} aria-label="customized table" size='small'>
+            <Table sx={{ minWidth: 700, }} aria-label="customized table" >
                 <TableHead >
-                    <TableRow>
-                        <StyledTableCell>GRAND PRIX</StyledTableCell>
-                        <StyledTableCell align="right">DATE</StyledTableCell>
-                        <StyledTableCell align="right">WINNER</StyledTableCell>
-                        <StyledTableCell align="right">Carb</StyledTableCell>
-                        <StyledTableCell align="right">LAPS</StyledTableCell>
-                        <StyledTableCell align="right">TIME</StyledTableCell>
+                    <TableRow style={{ textTransform: 'uppercase' }}>
+                        {filterData && filterData.length > 0 && Array.isArray(filterData[0]) && filterData[0]?.map(r => Object.keys(r))[0]?.map(tablecell => (
+                            <StyledTableCell key={uuidv4()} align="left">{tablecell}</StyledTableCell>
+                        ))}
                     </TableRow>
                 </TableHead>
                 <TableBody sx={{ backgroundColor: '#edeff1' }}>
-                    {dataRace.map((r) => (
+                    {filterData && filterData.length > 0 && Array.isArray(filterData[0]) && filterData && filterData.length > 0 && filterData[0]?.map((r) => (
                         <StyledTableRow key={uuidv4()}>
-                            <StyledTableCell component="th" scope="row">
-                                {r.grandprix}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{r.date}</StyledTableCell>
-                            <StyledTableCell align="right">{r.winner}</StyledTableCell>
-                            <StyledTableCell align="right">{r.car}</StyledTableCell>
-                            <StyledTableCell align="right">{r.lap}</StyledTableCell>
-                            <StyledTableCell align="right">{r.time}</StyledTableCell>
+                            {Object.values(r)?.map((value, i) => (
+                                <StyledTableCell align="left" key={i}>{value as string}</StyledTableCell>
+                            ))}
                         </StyledTableRow>
                     ))}
                 </TableBody>
+
             </Table>
         </TableContainer>
     );
