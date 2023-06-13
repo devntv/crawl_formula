@@ -6,8 +6,6 @@ import stylesHeader from './stylesHeader.module.css'
 
 function Header() {
     const changeText = useTextChange({ texts: DEFAULT_TEXT_HEADER, delay: 3500 })
-
-
     return (
         <header>
             <Grid className={stylesHeader.ctnLogo} container>
