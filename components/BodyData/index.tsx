@@ -1,11 +1,14 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { styled } from '@mui/system';
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
+import Loading from '../Loading';
 import TableRaceResult from '../TableRaceResult';
+import { MAP_CONTENT_DHL, MAP_TITLE } from '../utils';
 import styles from './styles.module.css';
 
 interface RaceData {
@@ -46,17 +49,18 @@ const StyledFormControlYear = styled(FormControl)({
 
 function BodyData() {
     const [dataRace, setDataRace] = useState<RaceResult[]>([])
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [year, setYear] = useState('2023');
-    const [field, setField] = useState('2023');
+    const [field, setField] = useState('races');
 
     useEffect(() => {
         async function getDataRace() {
+            setLoading(true);
             const response = await fetch("/api/raceResult");
             const data = await response.json();
             setDataRace(data);
-            setLoading(false);
             localStorage.setItem('raceData', JSON.stringify(data));
+            setLoading(false);
         }
         const storedData = localStorage.getItem('raceData');
         if (storedData) {
@@ -79,6 +83,7 @@ function BodyData() {
         setYear(event.target.value);
     };
 
+    console.log(loading);
 
     return (
         <Grid container className={styles.bodyctn}>
@@ -92,7 +97,7 @@ function BodyData() {
                             disableUnderline
                             label="Age"
                             value={field}
-
+                            disabled={loading}
                             onChange={handleChangeField}
                         >
                             {dataRace && dataRace.length > 0 &&
@@ -103,18 +108,15 @@ function BodyData() {
                                 ))
                             }
                         </Select>
-
                     </StylesFormF>
-
                     <StyledFormControlYear variant="standard" className={styles.fctrl}>
                         <Select
                             value={year}
                             onChange={handleChangeYear}
                             displayEmpty
                             disableUnderline
+                            disabled={loading}
                             inputProps={{ 'aria-label': 'Without label' }}
-
-
                         >
                             {dataRace?.map((raceResult) =>
                             (
@@ -128,9 +130,16 @@ function BodyData() {
                 </Box>
                 <BiSearch className={styles.si} />
             </Grid>
+            <Grid container item xs={12} className={clsx(loading ? styles.hide : styles.titleTable)}>
+                <Typography>{`${year} ${MAP_TITLE[field]}`}</Typography>
+                <Typography className={styles.contentTable}>
+                    {field === 'DHL' && MAP_CONTENT_DHL}
+                </Typography>
+            </Grid>
             <Grid container>
-                <Grid item xs={12} style={{ display: 'flex', padding: '40px' }} justifyContent='center'>
-                    <TableRaceResult filterData={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} loading={loading} />
+                <Grid item xs={12} style={{ display: 'flex', padding: '20px 40px 40px 40px' }} justifyContent='center'>
+                    {loading ? <Loading content='please wait a moment' />
+                        : <TableRaceResult filterData={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} loading={loading} />}
                 </Grid>
             </Grid>
         </Grid >
