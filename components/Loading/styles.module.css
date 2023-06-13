@@ -1,0 +1,54 @@
+.loadCir {
+    font-size: 14px;
+    animation-duration: 400ms !important;
+    color: #fa6e9d
+}
+
+.loadCtn {
+    display: flex;
+    color: #fa6e9d
+}
+
+.loadContent {
+    display: flex;
+    align-items: center;
+}
+
+.el {
+    display: inline-block;
+    animation: loadscreen 1s ease-in-out infinite;
+    animation-duration: 400ms !important;
+}
+
+.l1 {
+    animation-delay: 0s;
+}
+
+.l2 {
+    animation-delay: 0.2s;
+}
+
+.l3 {
+    animation-delay: 0.4s;
+}
+
+.loadContent>p {
+    font-size: 14px;
+}
+
+@keyframes loadscreen {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.8);
+        opacity: 0.7;
+    }
+}
