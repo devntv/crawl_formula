@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import Loading from '../Loading';
+import StarThemes from '../StarThemes';
 import TableRaceResult from '../TableRaceResult';
 import { MAP_CONTENT_DHL, MAP_TITLE } from '../utils';
 import styles from './styles.module.css';
@@ -83,66 +84,70 @@ function BodyData() {
         setYear(event.target.value);
     };
 
-    console.log(loading);
+    // console.log(loading);
 
     return (
-        <Grid container className={styles.bodyctn}>
-            <Grid item xs={12} style={{ display: 'flex', maxHeight: '60px' }} justifyContent='center' alignItems='center' >
-                <Box className={styles.searchCtn}>
-                    <StylesFormF sx={{ m: 1, minWidth: 120, textTransform: 'uppercase' }} className={styles.fctrl} variant="standard">
-                        <Select
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            displayEmpty
-                            disableUnderline
-                            label="Age"
-                            value={field}
-                            disabled={loading}
-                            onChange={handleChangeField}
-                        >
-                            {dataRace && dataRace.length > 0 &&
-                                Object.keys(dataRace[0]).filter(key => key !== 'year').map((key) => (
-                                    <MenuItem key={key} value={key} style={{ textTransform: 'uppercase' }}>
-                                        {key !== 'DHL' ? key : 'DHL FASTEST LAP AWARD'}
+        <>
+            <Grid container className={styles.bodyctn}>
+                <Grid item xs={12} style={{ display: 'flex', maxHeight: '60px' }} justifyContent='center' alignItems='center' >
+                    <Box className={styles.searchCtn}>
+                        <StylesFormF sx={{ m: 1, minWidth: 120, textTransform: 'uppercase', }} className={styles.fctrl} variant="standard">
+                            <Select
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                displayEmpty
+                                disableUnderline
+                                label="Age"
+                                value={field}
+                                disabled={loading}
+                                onChange={handleChangeField}
+
+                            >
+                                {dataRace && dataRace.length > 0 &&
+                                    Object.keys(dataRace[0]).filter(key => key !== 'year').map((key) => (
+                                        <MenuItem key={key} value={key} style={{ textTransform: 'uppercase' }}>
+                                            {key !== 'DHL' ? key : 'DHL FASTEST LAP AWARD'}
+                                        </MenuItem>
+                                    ))
+                                }
+                            </Select>
+                        </StylesFormF>
+                        <StyledFormControlYear variant="standard" className={styles.fctrl}>
+                            <Select
+                                value={year}
+                                onChange={handleChangeYear}
+                                displayEmpty
+                                disableUnderline
+                                disabled={loading}
+                                inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                                {dataRace?.map((raceResult) =>
+                                (
+                                    <MenuItem key={raceResult.year} value={raceResult.year} >
+                                        {raceResult.year}
                                     </MenuItem>
-                                ))
-                            }
-                        </Select>
-                    </StylesFormF>
-                    <StyledFormControlYear variant="standard" className={styles.fctrl}>
-                        <Select
-                            value={year}
-                            onChange={handleChangeYear}
-                            displayEmpty
-                            disableUnderline
-                            disabled={loading}
-                            inputProps={{ 'aria-label': 'Without label' }}
-                        >
-                            {dataRace?.map((raceResult) =>
-                            (
-                                <MenuItem key={raceResult.year} value={raceResult.year} >
-                                    {raceResult.year}
-                                </MenuItem>
-                            )
-                            )}
-                        </Select>
-                    </StyledFormControlYear>
-                </Box>
-                <BiSearch className={styles.si} />
-            </Grid>
-            <Grid container item xs={12} className={clsx(loading ? styles.hide : styles.titleTable)}>
-                <Typography>{`${year} ${MAP_TITLE[field]}`}</Typography>
-                <Typography className={styles.contentTable}>
-                    {field === 'DHL' && MAP_CONTENT_DHL}
-                </Typography>
-            </Grid>
-            <Grid container>
-                <Grid item xs={12} style={{ display: 'flex', padding: '20px 40px 40px 40px' }} justifyContent='center'>
-                    {loading ? <Loading content='please wait a moment' />
-                        : <TableRaceResult filterData={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} loading={loading} />}
+                                )
+                                )}
+                            </Select>
+                        </StyledFormControlYear>
+                    </Box>
+                    <BiSearch className={styles.si} />
                 </Grid>
-            </Grid>
-        </Grid >
+                <Grid container item xs={12} className={clsx(loading ? styles.hide : styles.titleTable)}>
+                    <Typography>{`${year} ${MAP_TITLE[field]}`}</Typography>
+                    <Typography className={styles.contentTable}>
+                        {field === 'DHL' && MAP_CONTENT_DHL}
+                    </Typography>
+                </Grid>
+                <Grid container>
+                    <Grid item xs={12} style={{ display: 'flex', padding: '20px 40px 40px 40px', position: 'relative', zIndex: '99' }} justifyContent='center'>
+                        {loading ? <Loading content='please wait a moment, about 40s' />
+                            : <TableRaceResult filterData={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} loading={loading} />}
+                    </Grid>
+                    <StarThemes />
+                </Grid>
+            </Grid >
+        </>
     )
 }
 

@@ -1,3 +1,27 @@
 .footerMain {
     display: flex;
+    padding: 20px 40px;
+    color: aliceblue;
+    border-top: 1px solid #ffffff14;
+}
+
+.ftl {
+    display: flex;
+    align-items: center;
+}
+
+.ftl>p {
+    margin-top: 8px;
+}
+
+.footerMain a {
+    color: aliceblue;
+    text-decoration: none;
+}
+
+.fi {
+    display: flex;
+    justify-content: space-between;
+    width: 10%;
+    font-size: 20px;
 }

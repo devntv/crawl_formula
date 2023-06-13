@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,18 +10,24 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.4",
+    "@react-three/drei": "^9.74.12",
+    "@react-three/fiber": "^8.13.2",
+    "@types/three": "^0.152.1",
     "clsx": "^1.2.1",
-    "framer-motion": "^10.12.16",
+    "math-random": "^2.0.1",
     "next": "latest",
     "puppeteer": "^20.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.9.0",
+    "react-three-fiber": "^6.0.13",
+    "three": "^0.153.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.2.6",
     "@types/react": "^18.2.10",
+    "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
   }
 }

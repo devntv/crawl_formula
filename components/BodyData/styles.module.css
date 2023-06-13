@@ -1,8 +1,9 @@
 .bodyctn {
-
+    position: relative;
     width: 100vw;
     overflow-x: hidden;
-    margin-top: 60px
+    margin-top: 60px;
+    z-index: 99
 }
 
 .bodyctn>div {
@@ -11,11 +12,12 @@
 
 .searchCtn {
     padding: 6px 0px;
-
+    position: relative;
     height: 32px;
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, .02);
+    z-index: 99;
 }
 
 .MuiInputBase-root {
