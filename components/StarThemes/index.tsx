@@ -2,8 +2,6 @@ import { OrbitControls, Stars } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import styles from './styles.module.css'
 
-
-
 export default function StarThemes() {
     return (
         <>

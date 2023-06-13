@@ -41,7 +41,6 @@ const StyledFormControlYear = styled(FormControl)({
         borderBottomColor: 'transparent',
     },
     backgroundColor: '#fa6e9d',
-    // 
     borderRight: 'none !important',
     position: 'relative',
     margin: 0
@@ -70,22 +69,18 @@ function BodyData() {
         } else {
             getDataRace();
         }
-        // getDataRace();
     }, []);
 
     // In ra giá trị mới của state "dataRace"
     const handleChangeField = (event: SelectChangeEvent) => {
         const selectedField = event.target.value;
         setField(selectedField);
-
     };
 
     const handleChangeYear = (event: SelectChangeEvent) => {
         setYear(event.target.value);
     };
-
     // console.log(loading);
-
     return (
         <>
             <Grid container className={styles.bodyctn}>
