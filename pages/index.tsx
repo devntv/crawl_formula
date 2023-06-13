@@ -14,9 +14,12 @@ export default function Home() {
 
       <main>
         <Header />
+
         <BodyData />
+
         <Footer />
       </main>
+
     </div>
   )
 }
