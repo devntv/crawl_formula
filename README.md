@@ -71,30 +71,34 @@ toàn bộ code sẽ ở file `raceResult.ts`
 
 # structure
 
-components
-|-- BodyData
-|--ChartRace
-|--Footer
-|--Header
-|--Loading
-|--Logo
-|--StarTheme
-|--TableRaceResult
-clients
-|--CrawlClient
-constants
-|--url
-|--style
-|--time
-data
-|--vrlStr
-hooks
-|--useText
-pages
-public
-
-And of course Dillinger itself is open source with a [public repository][dill]
-on GitHub.
+src
+├── components
+│ ├── BodyData
+│ └── ChartRace
+| └── Footer
+| └── Header
+| └── Loading
+| └── Logo
+| └── StarTheme
+| └── TableRaceResult
+├── clients
+| └── CrawlClient
+| └── index
+├── constants
+| └── index
+| └── styleChart
+| └── time
+| └── urlCrawl
+├── hooks
+| └── index
+| └── useTextChange
+├── pages
+| └── api
+| | └── raceResult
+| ├── test
+| └── index  
+ └── public
+└── styles
 
 ## Installation
 
