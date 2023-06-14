@@ -135,7 +135,7 @@ function BodyData() {
                 </Grid>
                 <Grid container item xs={12} className={clsx(loading ? styles.hide : styles.titleTable)}>
                     <Typography>{`${year} ${MAP_TITLE[field]}`}</Typography>
-                    <Typography className={styles.contentTable}>
+                    <Typography className={clsx(styles.contentTable, loading && styles.hide)}>
                         {field === 'DHL' && MAP_CONTENT_DHL}
                     </Typography>
                 </Grid>

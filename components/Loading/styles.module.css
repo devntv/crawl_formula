@@ -1,12 +1,12 @@
 .loadCir {
     font-size: 14px;
     animation-duration: 400ms !important;
-    color: #fa6e9d
+    color: #fa6e9d !important
 }
 
 .loadCtn {
     display: flex;
-    color: #fa6e9d
+    color: #fa6e9d !important
 }
 
 .loadContent {
