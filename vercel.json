@@ -1,6 +1,0 @@
-{
-    "build": {
-      "args": ["--use-x11-unix"]
-    }
-  }
-  

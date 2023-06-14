@@ -1,3 +1,4 @@
+import edgeChromium from "chrome-aws-lambda";
 import * as puppeteer from "puppeteer";
 import { URL_F1_CRAWL } from "../../constant";
 import { CURRENT_YEAR, START_TIME } from "../../constant/time";
@@ -6,8 +7,11 @@ interface RaceResult {
   year: string;
   data: any[];
 }
-
+const LOCAL_CHROME_EXECUTABLE =
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 export default async function handler(req, res) {
+  const executablePath =
+    (await edgeChromium.executablePath) || LOCAL_CHROME_EXECUTABLE;
   const raceResults: RaceResult[] = [];
   // tạo sẵn 1 mảng chứa data crawl được
   const raceData: any[] = [];
@@ -15,8 +19,10 @@ export default async function handler(req, res) {
   const endYear = CURRENT_YEAR;
 
   const browser = await puppeteer.launch({
-    headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    executablePath,
+    headless: false,
+    // args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    args: edgeChromium.args,
   });
 
   try {
