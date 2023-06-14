@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
   const browser = await puppeteer.launch({
     executablePath,
-    headless: false,
+    headless: true,
     // args: ["--no-sandbox", "--disable-setuid-sandbox"],
     args: edgeChromium.args,
   });
