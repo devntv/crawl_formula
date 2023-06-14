@@ -1,9 +1,9 @@
 .footerMain {
-    display: flex;
+    display: flex !important;
     padding: 20px 40px;
     color: aliceblue;
     border-top: 1px solid #ffffff14;
-    max-height: 70px
+    max-height: 70px !important;
 }
 
 .ftl {

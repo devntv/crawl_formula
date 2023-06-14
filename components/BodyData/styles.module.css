@@ -18,6 +18,9 @@
     align-items: center;
     background: rgba(255, 255, 255, .02);
     z-index: 99;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border: 1px solid #ffffff14
 }
 
 .MuiInputBase-root {
@@ -34,10 +37,12 @@
     display: flex;
     align-items: center;
     background-color: #fa6e9d;
-    padding: 13px;
+    padding: 12px;
+    position: relative;
+    right: 1px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
-    border-left: 1px solid #ffffff2e;
+    /* border-left: 1px solid #ffffff2e; */
 }
 
 .inp {
@@ -46,8 +51,8 @@
 }
 
 .fctrl {
-    border: 1px solid #ffffff14;
-    padding: 6px;
+    border-left: 1px solid #ffffff14;
+    padding: 6px !important;
     width: 111px;
     margin: 0;
 }

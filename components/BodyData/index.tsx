@@ -45,7 +45,7 @@ const StyledFormControlYear = styled(FormControl)({
     backgroundColor: '#fa6e9d',
     borderRight: 'none !important',
     position: 'relative',
-    margin: 0
+    // margin: 0
 });
 
 
