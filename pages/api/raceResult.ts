@@ -9,6 +9,7 @@ interface RaceResult {
 
 export default async function handler(req, res) {
   const raceResults: RaceResult[] = [];
+  // tạo sẵn 1 mảng chứa data crawl được
   const raceData: any[] = [];
   const startYear = START_TIME;
   const endYear = CURRENT_YEAR;
@@ -19,6 +20,7 @@ export default async function handler(req, res) {
   });
 
   try {
+    // định nghĩa từng page để crawl
     // race page
     const pageRace = await browser.newPage();
     // drivers page
@@ -28,17 +30,20 @@ export default async function handler(req, res) {
     // dhl fastest lap award
     const pageDFLA = await browser.newPage();
 
+    // ở đây mặc định crawl từ năm 2000 - 2023, các biến startYear và endYear định nghĩa sẵn trong constant -> dễ maintain
     for (let year = startYear; year <= endYear; year++) {
+      // các url của trang crawl
       await pageRace.goto(`${URL_F1_CRAWL}/${year}/races.html`);
       await pageDrivers.goto(`${URL_F1_CRAWL}/${year}/drivers.html`);
       await pageTeams.goto(`${URL_F1_CRAWL}/${year}/team.html`);
       await pageDFLA.goto(`${URL_F1_CRAWL}/${year}/fastest-laps.html`);
-
+      // chọn các class của thẻ chứa data
       await pageRace.waitForSelector(".resultsarchive-table");
       await pageDrivers.waitForSelector(".resultsarchive-table");
       await pageTeams.waitForSelector(".resultsarchive-table");
       await pageDFLA.waitForSelector(".resultsarchive-table");
 
+      // các page và các class để crawl
       // race page
       const racesRow = await pageRace.$$eval(
         ".resultsarchive-table tbody tr",
@@ -119,7 +124,7 @@ export default async function handler(req, res) {
       });
     }
 
-    console.log("data >", raceData);
+    // console.log("data >", raceData);
     res.status(200).json(raceData);
   } catch (err) {
     console.error(err);

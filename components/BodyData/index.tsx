@@ -6,6 +6,7 @@ import { styled } from '@mui/system';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
+import { CrawlRaceClient } from '../../clients';
 import { ChartRace } from '../ChartRace';
 import Loading from '../Loading';
 import StarThemes from '../StarThemes';
@@ -54,13 +55,13 @@ function BodyData() {
     const [year, setYear] = useState('2023');
     const [field, setField] = useState('races');
 
+    // call đến api crawl để lấy data và lưu nó vào localstorage
     useEffect(() => {
         async function getDataRace() {
             setLoading(true);
-            const response = await fetch("/api/raceResult");
-            const data = await response.json();
-            setDataRace(data);
-            localStorage.setItem('raceData', JSON.stringify(data));
+            const response = await CrawlRaceClient.getDataRaceClient()
+            setDataRace(response);
+            localStorage.setItem('raceData', JSON.stringify(response));
             setLoading(false);
         }
         const storedData = localStorage.getItem('raceData');
@@ -73,17 +74,18 @@ function BodyData() {
     }, []);
 
     // In ra giá trị mới của state "dataRace"
+    // lấy và set các giá trị fiedl từ data crawl được
     const handleChangeField = (event: SelectChangeEvent) => {
         const selectedField = event.target.value;
         setField(selectedField);
     };
-
+    // set year dùng để filter cho data
     const handleChangeYear = (event: SelectChangeEvent) => {
         setYear(event.target.value);
     };
     // console.log(loading);
-    console.log('dataRace', dataRace);
-    console.log('ưd', dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult))
+    // console.log('dataRace', dataRace);
+    // console.log('ưd', dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult))
 
     return (
         <>
@@ -100,7 +102,6 @@ function BodyData() {
                                 value={field}
                                 disabled={loading}
                                 onChange={handleChangeField}
-
                             >
                                 {dataRace && dataRace.length > 0 &&
                                     Object.keys(dataRace[0]).filter(key => key !== 'year').map((key) => (
@@ -144,7 +145,6 @@ function BodyData() {
                             : <TableRaceResult filterData={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} loading={loading} />}
                     </Grid>
                     <StarThemes />
-
                     <Grid item xs={12} className={styles.tableCtn} justifyContent='center'>
                         <ChartRace loading={loading} field={field} dataRaces={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} />
                     </Grid>

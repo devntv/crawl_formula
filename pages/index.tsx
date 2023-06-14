@@ -9,14 +9,11 @@ export default function Home() {
     <div >
       <Head>
         <title>vrillar</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/vrlogo.png" />
       </Head>
-
       <main>
         <Header />
-
         <BodyData />
-
         <Footer />
       </main>
 
