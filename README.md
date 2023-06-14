@@ -71,6 +71,7 @@ toàn bộ code sẽ ở file `raceResult.ts`
 
 # structure
 
+```
 src
 ├── components
 │ ├── BodyData
@@ -96,9 +97,10 @@ src
 | └── api
 | | └── raceResult
 | ├── test
-| └── index  
+| └── index
  └── public
 └── styles
+```
 
 ## Installation
 
