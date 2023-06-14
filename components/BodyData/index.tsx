@@ -6,6 +6,7 @@ import { styled } from '@mui/system';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
+import { ChartRace } from '../ChartRace';
 import Loading from '../Loading';
 import StarThemes from '../StarThemes';
 import TableRaceResult from '../TableRaceResult';
@@ -81,6 +82,9 @@ function BodyData() {
         setYear(event.target.value);
     };
     // console.log(loading);
+    console.log('dataRace', dataRace);
+    console.log('ưd', dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult))
+
     return (
         <>
             <Grid container className={styles.bodyctn}>
@@ -140,6 +144,10 @@ function BodyData() {
                             : <TableRaceResult filterData={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} loading={loading} />}
                     </Grid>
                     <StarThemes />
+
+                    <Grid item xs={12} className={styles.tableCtn} justifyContent='center'>
+                        <ChartRace loading={loading} field={field} dataRaces={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} />
+                    </Grid>
                 </Grid>
             </Grid >
         </>
