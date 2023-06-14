@@ -20,6 +20,7 @@
     "math-random": "^2.0.1",
     "next": "12.3.0",
     "puppeteer": "^20.5.0",
+    "puppeteer-core": "10.1.0",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",

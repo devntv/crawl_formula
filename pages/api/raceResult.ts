@@ -1,5 +1,6 @@
 import edgeChromium from "chrome-aws-lambda";
-import * as puppeteer from "puppeteer";
+// import * as puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
 import { URL_F1_CRAWL } from "../../constant";
 import { CURRENT_YEAR, START_TIME } from "../../constant/time";
 
