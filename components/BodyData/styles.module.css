@@ -76,3 +76,11 @@
 .hide {
     display: none;
 }
+
+.tableCtn {
+    display: flex;
+    padding: 20px 40px 40px 40px;
+    position: relative;
+    z-index: 99;
+    min-height: 488px;
+}

@@ -135,7 +135,7 @@ function BodyData() {
                     </Typography>
                 </Grid>
                 <Grid container>
-                    <Grid item xs={12} style={{ display: 'flex', padding: '20px 40px 40px 40px', position: 'relative', zIndex: '99' }} justifyContent='center'>
+                    <Grid item xs={12} className={styles.tableCtn} justifyContent='center'>
                         {loading ? <Loading content='please wait a moment, about 40s' />
                             : <TableRaceResult filterData={dataRace.filter((raceResult) => raceResult.year === year).map((raceResult) => raceResult[field])} loading={loading} />}
                     </Grid>
