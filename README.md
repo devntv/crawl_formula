@@ -72,23 +72,24 @@ toàn bộ code sẽ ở file `raceResult.ts`
 # structure
 
 components
-|** BodyData
-|** ChartRace
-|** Footer
-|** Header
-|** Loading
-|** Logo
-|** StarTheme
-|** TableRaceResult
+|-- BodyData
+|--ChartRace
+|--Footer
+|--Header
+|--Loading
+|--Logo
+|--StarTheme
+|--TableRaceResult
 clients
-|** CrawlClient
+|--CrawlClient
 constants
-|** url
-|** style
-|** time
-dat
-|\_\_ vrlStr
+|--url
+|--style
+|--time
+data
+|--vrlStr
 hooks
+|--useText
 pages
 public
 
