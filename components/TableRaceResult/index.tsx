@@ -51,7 +51,7 @@ interface CustomizedTableProps {
 
 export default function TableData(props: CustomizedTableProps) {
     const { filterData = [], loading } = props
-    // console.log('setSelectedArray', filterData[0]);
+    console.log('setSelectedArray', filterData[0]);
     // console.log('krys', filterData[0]?.map(r => Object.values(r)))
     return (
         <TableContainer component={Paper} sx={{ backgroundColor: 'transparent' }} >
