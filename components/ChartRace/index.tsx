@@ -56,11 +56,8 @@ export const data = {
 export function ChartRace(props: CustomizedChartProps) {
     const { dataRaces = [], field, loading } = props;
 
-
-
-
-    console.log('xc', dataRaces[0]);
-    console.log('countWinner', field);
+    // console.log('xc', dataRaces[0]);
+    // console.log('countWinner', field);
     const updateChartData = (field: string) => {
         let labels: string[] = []
         let data: any[] = []
@@ -76,7 +73,6 @@ export function ChartRace(props: CustomizedChartProps) {
             labels = Array.from(new Set(driverJoinRaces))
             data = dataWinners
             label = 'total win'
-            console.log('field changes');
         }
         if (field === 'drivers') {
             const driversArr: string[] = []
@@ -86,7 +82,6 @@ export function ChartRace(props: CustomizedChartProps) {
             labels = driversArr
             data = rankingArr
             label = 'point ranking'
-            console.log('field changes');
         }
         if (field === 'teams') {
             const teamsArr: string[] = []
@@ -126,7 +121,7 @@ export function ChartRace(props: CustomizedChartProps) {
     };
 
     const dataPieChart = updateChartData(field);
-    console.log('chart', dataPieChart);
+    // console.log('chart', dataPieChart);
 
     return (
         <Grid container className={styles.chartCtn} justifyContent='center'>

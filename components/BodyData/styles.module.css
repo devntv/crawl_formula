@@ -58,6 +58,10 @@
     border-bottom: none;
 }
 
+.fctrl>div>svg {
+    color: aliceblue !important;
+}
+
 .titleTable {
     display: flex;
     width: 100%;
