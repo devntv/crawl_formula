@@ -24,6 +24,7 @@ export default async function handler(req, res) {
     headless: true,
     // args: ["--no-sandbox", "--disable-setuid-sandbox"],
     args: edgeChromium.args,
+    ignoreDefaultArgs: ["--disable-extensions"],
   });
 
   try {
