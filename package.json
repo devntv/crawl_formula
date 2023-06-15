@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "yarn install && yarn run build",
+    "build": "next build",
     "start": "next start"
   },
   "dependencies": {
