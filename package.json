@@ -4,8 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "yarn install && yarn run build",
-    "start": "next start",
-    "install": "apt-get update && apt-get install -y libnss3 libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libxcb-dri3-0"
+    "start": "next start"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
