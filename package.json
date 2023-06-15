@@ -2,8 +2,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "yarn install && yarn run build",
     "dev": "next dev",
-    "build": "next build",
     "start": "next start"
   },
   "dependencies": {
